@@ -22,7 +22,7 @@ public class Server {
                 DataInputStream inputStream = new DataInputStream(s.getInputStream());
                 DataOutputStream outputStream = new DataOutputStream(s.getOutputStream());
 
-                Thread t = newClientHandler(s, inputStream, outputStream);
+                Thread t = new ClientHandler(s, inputStream, outputStream);
                 t.start();
             }
 
