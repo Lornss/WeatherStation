@@ -22,8 +22,27 @@ public class Server {
                 DataInputStream inputStream = new DataInputStream(s.getInputStream());
                 DataOutputStream outputStream = new DataOutputStream(s.getOutputStream());
 
-                Thread t = new ClientHandler(s, inputStream, outputStream);
-                t.start();
+                String received = inputStream.readUTF();
+
+                switch (received){
+                    case "client":
+                        Thread tClient = new ClientHandler(s, inputStream, outputStream);
+                        tClient.start();
+
+                    case "station":
+                        Thread tStation = new StationHandler(s, inputStream, outputStream);
+                        tStation.start();
+
+                    default:
+                        outputStream.writeUTF("Invalid client");
+                }
+
+                if(received.equals("Client")){
+                    Thread t = new ClientHandler(s, inputStream, outputStream);
+                    t.start();
+                }
+
+
             }
 
             catch(Exception e){
