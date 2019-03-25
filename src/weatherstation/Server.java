@@ -5,8 +5,13 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Vector;
 
 public class Server {
+
+    static ArrayList<ClientHandler> Clients = new ArrayList<ClientHandler>();
+    static ArrayList<StationHandler> Stations = new ArrayList<StationHandler>();
 
     public static void main(String[] args) throws IOException {
         ServerSocket socket = new ServerSocket(8080);
@@ -27,27 +32,29 @@ public class Server {
                 switch (received){
                     case "client":
                         Thread tClient = new ClientHandler(s, inputStream, outputStream);
+                        Clients.add((ClientHandler) tClient);
                         tClient.start();
+                        break;
 
                     case "station":
                         Thread tStation = new StationHandler(s, inputStream, outputStream);
+                        Stations.add((StationHandler) tStation);
                         tStation.start();
+                        break;
 
                     default:
-                        outputStream.writeUTF("Invalid client");
+                        outputStream.writeUTF("Invalid Client");
+                        s.close();
                 }
 
-                if(received.equals("Client")){
-                    Thread t = new ClientHandler(s, inputStream, outputStream);
-                    t.start();
-                }
+
+
 
 
             }
 
             catch(Exception e){
                 s.close();
-                e.printStackTrace();
             }
         }
     }
