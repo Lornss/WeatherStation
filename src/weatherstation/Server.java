@@ -6,14 +6,26 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Server {
+
+public class Server extends Thread{
 
     static ArrayList<ClientHandler> Clients = new ArrayList<ClientHandler>();
     static ArrayList<StationHandler> Stations = new ArrayList<StationHandler>();
+    
+    @Override
+    public void run(){
+        try {
+            Server.mainServer();
+        } catch (IOException ex) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 
-    public static void main(String[] args) throws IOException {
+    public static void mainServer() throws IOException {
         ServerSocket socket = new ServerSocket(8080);
 
         while(true){

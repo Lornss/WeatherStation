@@ -15,8 +15,15 @@ public class WeatherStation {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        System.out.println("Hello world!");
+        Thread tServer = new Thread(new Server());
+        Thread tClient = new Thread(new UserClient());
+        Thread tStation = new Thread(new StationClient());
+        
+        tServer.start();
+        tClient.start();
+        tStation.start();
+        
+       
     }
     
 }

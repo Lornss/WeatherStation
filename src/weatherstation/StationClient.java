@@ -6,10 +6,23 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class StationClient {
+public class StationClient extends Thread{
+    
+        @Override
+    public void run(){
+            try {
+                StationClient.mainStation();
+            } catch (IOException ex) {
+                Logger.getLogger(StationClient.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(StationClient.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
 
-    public static void main(String args[]) throws IOException, InterruptedException {
+    public static void mainStation() throws IOException, InterruptedException {
 
         Socket clientSocket = new Socket(InetAddress.getLocalHost(), 8080);
         DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
