@@ -10,7 +10,7 @@ public class StationHandler extends Thread{
     final DataInputStream inputStream;
     final DataOutputStream outputStream;
     final Socket socket;
-    double tempreture;
+    double Temperature;
 
     public StationHandler(Socket s, DataInputStream input, DataOutputStream output){
         this.inputStream = input;
@@ -19,7 +19,7 @@ public class StationHandler extends Thread{
     }
 
     public double getTemperature() {
-        return tempreture;
+        return Temperature;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class StationHandler extends Thread{
 
         while(true) {
             try {
-                tempreture = inputStream.readDouble();
+                Temperature = inputStream.readDouble();
 
             } catch (IOException e) {
                 e.printStackTrace();
