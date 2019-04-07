@@ -18,7 +18,7 @@ public class StationHandler extends Thread{
         this.socket = s;
     }
 
-    public double getTempreture() {
+    public double getTemperature() {
         return tempreture;
     }
 
