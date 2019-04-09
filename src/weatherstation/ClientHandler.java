@@ -20,7 +20,7 @@ public class ClientHandler extends Thread{
 
     public  void sendTemps() throws IOException {
         for(StationHandler i: Server.Stations){
-            outputStream.writeDouble(i.getTempreture());
+            outputStream.writeDouble(i.getTemperature());
         }
     }
 
