@@ -5,6 +5,7 @@
  */
 package weatherstation;
 
+
 /**
  *
  * @author N0756303
@@ -18,11 +19,18 @@ public class WeatherStation {
         Thread tServer = new Thread(new Server());
         Thread tClient = new Thread(new UserClient());
         Thread tStation = new Thread(new StationClient());
-        
+        Thread tStation2 = new Thread(new StationClient());
+
+
         tServer.start();
-        tClient.start();
+
         tStation.start();
-        
+        tStation2.start();
+
+        tClient.start();
+
+
+
        
     }
     

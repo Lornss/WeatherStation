@@ -1,5 +1,7 @@
 package weatherstation;
 
+import com.sun.security.ntlm.Client;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,10 +12,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Server extends Thread{
+public class Server implements Runnable{
 
-    static ArrayList<ClientHandler> Clients = new ArrayList<ClientHandler>();
-    static ArrayList<StationHandler> Stations = new ArrayList<StationHandler>();
+    static ArrayList<ClientHandler> Clients = new ArrayList<>();
+    static ArrayList<StationHandler> Stations = new ArrayList<>();
     
     @Override
     public void run(){
@@ -43,14 +45,16 @@ public class Server extends Thread{
 
                 switch (received){
                     case "client":
-                        Thread tClient = new ClientHandler(s, inputStream, outputStream);
-                        Clients.add((ClientHandler) tClient);
+                        ClientHandler client = new ClientHandler(s, inputStream, outputStream);
+                        Thread tClient = new Thread(client);
+                        Clients.add(client);
                         tClient.start();
                         break;
 
                     case "station":
-                        Thread tStation = new StationHandler(s, inputStream, outputStream);
-                        Stations.add((StationHandler) tStation);
+                        StationHandler station = new StationHandler(s, inputStream, outputStream);
+                        Thread tStation = new Thread (station);
+                        Stations.add(station);
                         tStation.start();
                         break;
 

@@ -27,11 +27,14 @@ public class UserClient extends Thread{
         DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
 
         outputStream.writeUTF("client");
+        if(!inputStream.readUTF().equals("valid")){
+            clientSocket.close();
+        }
 
         //Constantly listen for incoming doubles
         while(true){
             double msg = inputStream.readDouble();
-            System.out.println("Client is sending: " + msg);
+            System.out.println(msg);
         }
 
 
