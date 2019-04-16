@@ -41,6 +41,7 @@ public class StationClient extends Thread{
     }
 
     private static double genData(){
-        return (Math.random() * 50);
+            double data = Math.random() * 50;
+            return data;
     }
 }

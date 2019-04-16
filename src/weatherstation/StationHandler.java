@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class StationHandler extends Thread{
+public class StationHandler implements Runnable{
 
     final DataInputStream inputStream;
     final DataOutputStream outputStream;
