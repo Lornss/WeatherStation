@@ -33,18 +33,16 @@ public class StationHandler implements Runnable{
             e.printStackTrace();
         }
 
-        int i = 0;
-        while(i < 4) {
+        while(true) {
             try {
                 Temperature = inputStream.readDouble();
-                i++;
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        removeHandler();
+
 
     }
 
