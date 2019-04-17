@@ -33,16 +33,29 @@ public class StationHandler implements Runnable{
             e.printStackTrace();
         }
 
-        while(true) {
+        int i = 0;
+        while(i < 4) {
             try {
                 Temperature = inputStream.readDouble();
+                i++;
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
+        removeHandler();
 
+    }
 
+    //Generates an error in console but still removes the handler
+    //This needs to be fixed at some point
+    synchronized private void removeHandler(){
+
+        for(StationHandler i: Server.Stations){
+            if(i.equals(this)) {
+                Server.Stations.remove(this);
+            }
+        }
     }
 }
